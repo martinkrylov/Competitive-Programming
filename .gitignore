@@ -1,0 +1,12 @@
+#I/O files
+*.out
+*.in
+
+#if it does ot contain a . remove it(for the extentionless executables)
+*
+!/**/
+!*.*
+
+# Ignore Mac DS_Store files
+.DS_Store
+*.DS_Store
