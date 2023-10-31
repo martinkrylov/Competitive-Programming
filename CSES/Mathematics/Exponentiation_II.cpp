@@ -25,14 +25,14 @@ typedef pair<int,int> ii;
 
 #define MOD 1000000007
 
-ll power(ll base,ll exp){
+ll power(ll base,ll exp,ll mod){
     if(base == 0 && exp == 0) return 1;
     if(exp == 0) return 1;
     if(exp == 1) return base;
-    ll save = power(base,exp/2);
-    save = (save*save)%MOD;
-    if(exp%2==1) save = (save*base)%MOD;
-    return save;
+    ll save = power(base,exp/2,mod);
+    save = (save*save)%mod;
+    if(exp%2==1) save = (save*base)%mod;
+    return save%mod;
 }
 
 int main() {
@@ -42,8 +42,9 @@ int main() {
     while(N--){
         ll a,b,c;
         cin>>a>>b>>c;
-        ll bc = power(b,c);
-        
+        ll bc = power(b,c,MOD-1);
+        ll abc = power(a,bc,(MOD));
+        cout<<abc<<endl;
     }
     return 0;
 }
