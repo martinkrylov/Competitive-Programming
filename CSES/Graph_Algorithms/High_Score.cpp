@@ -78,6 +78,7 @@ int main() {
         if(!modified) break;
     }
     
+    // Check for loop
     bool hasUsefulLoop = false;
     for(int a = 0;a<N;a++){
         if(!useful[a]) continue;
