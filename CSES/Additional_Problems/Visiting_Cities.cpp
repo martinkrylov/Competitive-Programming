@@ -30,7 +30,7 @@ void run_dijkstra(long long source, vector< vector< pair<long long,long long> > 
     priority_queue< pair<long long,long long> , vector< pair<long long,long long> >, greater< pair<long long,long long> > > pq;
     pq.push(make_pair(0,source));
     dist[source] = 0;
-    
+
     while(!pq.empty()){
         long long cd = pq.top().first;
         long long cn = pq.top().second;
@@ -74,22 +74,23 @@ int main() {
     vector<long long> result;
     long long minDist = distS[N-1];
 
-    priority_queue< pair<long long,long long>, vector< pair<long long,long long> >, greater< pair<long long,long long> > > pq;
-    pq.push(make_pair(0,0));
-    while(!pq.empty()){
-        long long cd = pq.top().first;
-        long long cn = pq.top().second;
-        pq.pop();
+    //"Slowly" increase the distance travelled along minimum paths, if a node is shared amongst all paths it will completely saturate the queue
+    priority_queue< pair<long long,long long>, vector< pair<long long,long long> >, greater< pair<long long,long long> > > paths;
+    paths.push(make_pair(0,0));
+    while(!paths.empty()){
+        long long cd = paths.top().first;
+        long long cn = paths.top().second;
+        paths.pop();
         //Pop Duplicates
-        while(!pq.empty()&&pq.top().second == cn) pq.pop();
+        while(!paths.empty()&&paths.top().second == cn) paths.pop();
         //Check if Result
-        if(pq.empty()) result.push_back(cn);
+        if(paths.empty()) result.push_back(cn);
         //Add next
         for(auto np:adjl[cn]){
             long long nn = np.second;
             long long ed = np.first;
             if(distS[nn]+distL[nn] == minDist && cd+ed == distS[nn]){
-                pq.push(make_pair(distS[nn],nn));
+                paths.push(make_pair(distS[nn],nn));
                 //if(qc<5) cout<<nn<<" ";
             }
         }
